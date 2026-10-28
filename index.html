@@ -58,6 +58,8 @@ button.ghost{background:#1B2B4B}
   <div id="tgn-umsg"></div>
 </main>
 <script>
+function tgPurge(f){var u='https://purge.jsdelivr.net/gh/'+REPO+'@'+BRANCH+'/'+f;[0,4000,15000].forEach(function(d){setTimeout(function(){try{var p=new XMLHttpRequest();p.open('GET',u,true);p.send()}catch(e){}},d)})}
+
 window.onerror=function(m,u,l){if(!l||/^Script error/i.test(String(m)))return true;/* 浏览器插件注入的跨域脚本报错，与本页无关 */var e=document.getElementById('tgn-msg');if(e){e.className='bad';e.textContent='页面出错：'+m+'（第 '+l+' 行）';}};
 var REPO='sandeli/TGYSTV-notice',BRANCH='main',PATH='announcement.json';
 var API='https://api.github.com/repos/'+REPO+'/contents/'+PATH;
@@ -97,7 +99,7 @@ $('tgn-save').onclick=function(){
     var body={message:'公告更新 '+now.toLocaleString(),content:b64(JSON.stringify(data,null,2)+'\n'),branch:BRANCH};if(st===200&&f&&f.sha)body.sha=f.sha;
     req('PUT',API,body,function(st2,j){
       busy=false;$('tgn-save').textContent='发布公告';
-      if(st2===200||st2===201){try{var p=new XMLHttpRequest();p.open('GET','https://purge.jsdelivr.net/gh/'+REPO+'@'+BRANCH+'/'+PATH,true);p.send()}catch(e){}
+      if(st2===200||st2===201){tgPurge(PATH);
         say('✓ 已发布。电视彻底退出 App 再打开即可看到（一般 1～2 分钟内生效）。','ok');}
       else say('发布失败：'+errText(st2,j),'bad');
     });
@@ -118,13 +120,13 @@ $('tgn-usave').onclick=function(){
     j.push=$('tgn-upush').checked;j.force=$('tgn-uforce').checked;j.notes=trim($('tgn-unotes').value);
     req('PUT',UAPI,{message:'更新设置 '+new Date().toLocaleString(),content:b64(JSON.stringify(j,null,2)+'\n'),branch:BRANCH,sha:f.sha},function(st2,r){
       ubusy=false;$('tgn-usave').textContent='保存更新设置';
-      if(st2===200||st2===201){try{var p=new XMLHttpRequest();p.open('GET','https://purge.jsdelivr.net/gh/'+REPO+'@'+BRANCH+'/update.json',true);p.send()}catch(e){}ufill(j);usay('✓ 已保存。电视下次启动 App 时生效。','ok');}
+      if(st2===200||st2===201){tgPurge('update.json');ufill(j);usay('✓ 已保存。电视下次启动 App 时生效。','ok');}
       else usay('保存失败：'+errText(st2,r),'bad');
     });
   });
 };
 ucur(function(st,f){if(st===200&&f){try{ufill(JSON.parse(unb64(f.content)))}catch(e){}}else $('tgn-uinfo').textContent='还没有可推送的版本';});
-say('页面已就绪（v7），填好令牌后点「发布公告」','muted');
+say('页面已就绪（v8），填好令牌后点「发布公告」','muted');
 current(function(st,f){if(st===200&&f){try{fill(JSON.parse(unb64(f.content)))}catch(e){preview()}}else preview()});
 </script>
 </body>
