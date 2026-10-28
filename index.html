@@ -58,7 +58,7 @@ button.ghost{background:#1B2B4B}
   <div id="tgn-umsg"></div>
 </main>
 <script>
-window.onerror=function(m,u,l){var e=document.getElementById('tgn-msg');if(e){e.className='bad';e.textContent='页面出错：'+m+'（第 '+l+' 行）';}};
+window.onerror=function(m,u,l){if(!l||/^Script error/i.test(String(m)))return true;/* 浏览器插件注入的跨域脚本报错，与本页无关 */var e=document.getElementById('tgn-msg');if(e){e.className='bad';e.textContent='页面出错：'+m+'（第 '+l+' 行）';}};
 var REPO='sandeli/TGYSTV-notice',BRANCH='main',PATH='announcement.json';
 var API='https://api.github.com/repos/'+REPO+'/contents/'+PATH;
 function $(id){return document.getElementById(id)}
@@ -124,7 +124,7 @@ $('tgn-usave').onclick=function(){
   });
 };
 ucur(function(st,f){if(st===200&&f){try{ufill(JSON.parse(unb64(f.content)))}catch(e){}}else $('tgn-uinfo').textContent='还没有可推送的版本';});
-say('页面已就绪（v5），填好令牌后点「发布公告」','muted');
+say('页面已就绪（v6），填好令牌后点「发布公告」','muted');
 current(function(st,f){if(st===200&&f){try{fill(JSON.parse(unb64(f.content)))}catch(e){preview()}}else preview()});
 </script>
 </body>
