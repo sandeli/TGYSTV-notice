@@ -47,6 +47,15 @@ button.ghost{background:#1B2B4B}
   <button id="tgn-save">发布公告</button>
   <button id="tgn-load" class="ghost">读取当前公告</button>
   <div id="tgn-msg" class="bad">页面脚本未运行：请用 Chrome / Edge / Safari 直接打开本页（不要在 GitHub 代码页或聊天软件内置浏览器里打开）。</div>
+
+  <h1 style="margin-top:34px;font-size:19px">版本更新</h1>
+  <p class="sub" id="tgn-uinfo">读取中…</p>
+  <div class="row"><input type="checkbox" id="tgn-upush"><label for="tgn-upush" style="margin:0">推送更新（电视启动时提示新版本）</label></div>
+  <div class="row"><input type="checkbox" id="tgn-uforce"><label for="tgn-uforce" style="margin:0">强制更新（不能跳过）</label></div>
+  <label for="tgn-unotes">更新说明</label>
+  <textarea id="tgn-unotes" style="min-height:90px"></textarea>
+  <button id="tgn-usave">保存更新设置</button>
+  <div id="tgn-umsg"></div>
 </main>
 <script>
 window.onerror=function(m,u,l){var e=document.getElementById('tgn-msg');if(e){e.className='bad';e.textContent='页面出错：'+m+'（第 '+l+' 行）';}};
@@ -94,7 +103,28 @@ $('tgn-save').onclick=function(){
     });
   });
 };
-say('页面已就绪（v4），填好令牌后点「发布公告」','muted');
+
+var UAPI='https://api.github.com/repos/'+REPO+'/contents/update.json';
+function usay(t,cls){$('tgn-umsg').className=cls||'';$('tgn-umsg').textContent=t;}
+function ucur(cb){req('GET',UAPI+'?ref='+BRANCH+'&t='+(+new Date()),null,cb)}
+function ufill(j){$('tgn-upush').checked=!!j.push;$('tgn-uforce').checked=!!j.force;$('tgn-unotes').value=j.notes||'';$('tgn-uinfo').textContent=j.versionName?('最新版本 '+j.versionName+'（'+(j.versionCode||'')+'），安装包 '+(j.size?(j.size/1048576).toFixed(1)+' MB':'')):'还没有可推送的版本';}
+var ubusy=false;
+$('tgn-usave').onclick=function(){
+  if(ubusy)return;var t=trim($('tgn-token').value);if(!t){usay('请先在上方填写 GitHub 令牌','bad');return;}
+  store('tgys-notice-token',t);ubusy=true;$('tgn-usave').textContent='正在保存…';usay('正在保存…');
+  ucur(function(st,f){
+    if(st!==200||!f){ubusy=false;$('tgn-usave').textContent='保存更新设置';usay('读取失败：'+errText(st,f),'bad');return;}
+    var j={};try{j=JSON.parse(unb64(f.content))}catch(e){}
+    j.push=$('tgn-upush').checked;j.force=$('tgn-uforce').checked;j.notes=trim($('tgn-unotes').value);
+    req('PUT',UAPI,{message:'更新设置 '+new Date().toLocaleString(),content:b64(JSON.stringify(j,null,2)+'\n'),branch:BRANCH,sha:f.sha},function(st2,r){
+      ubusy=false;$('tgn-usave').textContent='保存更新设置';
+      if(st2===200||st2===201){try{var p=new XMLHttpRequest();p.open('GET','https://purge.jsdelivr.net/gh/'+REPO+'@'+BRANCH+'/update.json',true);p.send()}catch(e){}ufill(j);usay('✓ 已保存。电视下次启动 App 时生效。','ok');}
+      else usay('保存失败：'+errText(st2,r),'bad');
+    });
+  });
+};
+ucur(function(st,f){if(st===200&&f){try{ufill(JSON.parse(unb64(f.content)))}catch(e){}}else $('tgn-uinfo').textContent='还没有可推送的版本';});
+say('页面已就绪（v5），填好令牌后点「发布公告」','muted');
 current(function(st,f){if(st===200&&f){try{fill(JSON.parse(unb64(f.content)))}catch(e){preview()}}else preview()});
 </script>
 </body>
