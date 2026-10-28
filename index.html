@@ -70,7 +70,7 @@ $('save').onclick=function(){
   current().then(function(f){return f.sha}).catch(function(){return null}).then(function(sha){
     var body={message:'公告更新 '+now.toLocaleString('zh-CN'),content:b64(JSON.stringify(data,null,2)+'\n'),branch:BRANCH};if(sha)body.sha=sha;
     return fetch(API,{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},headers()),body:JSON.stringify(body)});
-  }).then(function(r){if(!r.ok)return r.json().then(function(j){throw new Error('发布失败（HTTP '+r.status+'）：'+(j.message||''))});say('已发布。电视下次启动 App 时显示（GitHub Pages 约 1 分钟生效）。','ok');})
+  }).then(function(r){if(!r.ok)return r.json().then(function(j){throw new Error('发布失败（HTTP '+r.status+'）：'+(j.message||''))});['cdn','fastly'].forEach(function(h){fetch('https://purge.jsdelivr.net/gh/'+REPO+'@'+BRANCH+'/'+PATH).catch(function(){})});say('已发布。电视下次启动 App 时显示（一般几分钟内生效）。','ok');})
   .catch(function(e){say(e.message,'bad')});
 };
 current().then(function(f){fill(JSON.parse(unb64(f.content)))}).catch(function(){preview()});
