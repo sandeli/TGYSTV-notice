@@ -1,8 +1,6 @@
 {
   "enabled": true,
-  "text": "【公告】TGYS TV 公告跑马灯测试，看到这条说明公告功能正常。",
-  "messages": [
-    "测试123456789"
-  ],
-  "updated": "2026-10-28T03:28:22.492Z"
+  "text": "【公告】欢迎使用TGYS TV-App",
+  "messages": [],
+  "updated": "2026-10-28T10:59:22.314Z"
 }
