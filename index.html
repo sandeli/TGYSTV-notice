@@ -46,7 +46,7 @@ button.ghost{background:#1B2B4B}
 
   <button id="tgn-save">发布公告</button>
   <button id="tgn-load" class="ghost">读取当前公告</button>
-  <div id="tgn-msg"></div>
+  <div id="tgn-msg" class="bad">页面脚本未运行：请用 Chrome / Edge / Safari 直接打开本页（不要在 GitHub 代码页或聊天软件内置浏览器里打开）。</div>
 </main>
 <script>
 window.onerror=function(m,u,l){var e=document.getElementById('tgn-msg');if(e){e.className='bad';e.textContent='页面出错：'+m+'（第 '+l+' 行）';}};
@@ -94,6 +94,7 @@ $('tgn-save').onclick=function(){
     });
   });
 };
+say('页面已就绪（v4），填好令牌后点「发布公告」','muted');
 current(function(st,f){if(st===200&&f){try{fill(JSON.parse(unb64(f.content)))}catch(e){preview()}}else preview()});
 </script>
 </body>
