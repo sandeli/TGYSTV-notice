@@ -1,10 +1,10 @@
 {
   "push": true,
   "force": false,
-  "versionCode": 109,
-  "versionName": "3.0.9",
-  "notes": "弹幕设置改为独立页面，可点选开关、区域（1/6起）、字号（14–25）；新增扫码输入弹幕接口；弹窗统一深蓝配色；设置里可手动检查更新；移除直播功能。",
-  "file": "apk/TGYS-TV-3.0.9.apk",
-  "size": 4522279,
-  "sha256": "8c481eb3748ff8bf15fd174814aa219a20099458f826b3d300ba4dd35cf0c328"
+  "versionCode": 110,
+  "versionName": "3.1.0",
+  "notes": "全屏控制栏改为浮动样式，按钮顺序为下一集、上一集；快进快退提示移到中间偏下；首页菜单改为半透明玻璃效果；优化源测速排序，优先推荐更流畅的源。",
+  "file": "apk/TGYS-TV-3.1.0.apk",
+  "size": 4522918,
+  "sha256": "ac353a84ae04ef6747c183be627427318c8fae2056c5aa4cebf93131e67da98e"
 }
