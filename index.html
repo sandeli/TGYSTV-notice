@@ -23,7 +23,7 @@ button.ghost{background:#1B2B4B}
 @keyframes run{to{transform:translateX(-100%)}}
 #tgn-msg{margin-top:14px;font-size:14px;white-space:pre-wrap;word-break:break-all}
 .ok{color:#34D399}.bad{color:#F87171}.muted{color:#8A9BB8;font-size:12px}
-</style>
+.tag.spk{background:none!important;padding:0!important;display:inline-flex;align-items:center}</style>
 </head>
 <body>
 <main>
@@ -38,7 +38,7 @@ button.ghost{background:#1B2B4B}
 
   <div class="row"><input type="checkbox" id="tgn-enabled" checked><label for="tgn-enabled" style="margin:0">显示公告（取消勾选即隐藏）</label></div>
 
-  <div class="preview"><span class="tag">公告</span><span class="run" id="tgn-pv"></span></div>
+  <div class="preview"><span class="tag spk" aria-label="公告"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#f97316" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h4l5.5-4.5v15L7 15H3z" fill="#f97316"/><path d="M15.5 9.3a3.5 3.5 0 0 1 0 5.4"/><path d="M17.8 6.5a7 7 0 0 1 0 11"/></svg></span><span class="run" id="tgn-pv"></span></div>
 
   <label for="tgn-token">GitHub 令牌</label>
   <input id="tgn-token" type="password" autocomplete="off" placeholder="github_pat_…（只保存在本机浏览器）">
@@ -124,7 +124,7 @@ $('tgn-usave').onclick=function(){
   });
 };
 ucur(function(st,f){if(st===200&&f){try{ufill(JSON.parse(unb64(f.content)))}catch(e){}}else $('tgn-uinfo').textContent='还没有可推送的版本';});
-say('页面已就绪（v6），填好令牌后点「发布公告」','muted');
+say('页面已就绪（v7），填好令牌后点「发布公告」','muted');
 current(function(st,f){if(st===200&&f){try{fill(JSON.parse(unb64(f.content)))}catch(e){preview()}}else preview()});
 </script>
 </body>
