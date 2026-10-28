@@ -1,10 +1,10 @@
 {
   "push": true,
   "force": false,
-  "versionCode": 105,
-  "versionName": "3.0.5",
-  "notes": "全屏四角状态信息、红色进度条、换源按播放速度排序、剧集去广告、一键停用异常源、公告始终滚动。",
-  "file": "apk/TGYS-TV-3.0.5.apk",
-  "size": 4498195,
-  "sha256": "def4634d2dc516d5f5e4b1fd15da542f879c51729bb23d4ae9d9166509995e86"
+  "versionCode": 107,
+  "versionName": "3.0.7",
+  "notes": "本版起更换新签名：请先卸载旧版再安装（之后可应用内直接升级）。新增应用内更新、选集分页、换源列表自动收起、历史重新测速选源、公告小喇叭。",
+  "file": "apk/TGYS-TV-3.0.7.apk",
+  "size": 4505772,
+  "sha256": "c1740ff728aef1104e4635b2d56b316ebc7d4575a88ddca4ebd803f3987b687a"
 }
