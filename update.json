@@ -1,10 +1,10 @@
 {
   "push": true,
   "force": false,
-  "versionCode": 110,
-  "versionName": "3.1.0",
-  "notes": "全屏控制栏改为浮动样式，按钮顺序为下一集、上一集；快进快退提示移到中间偏下；首页菜单改为半透明玻璃效果；优化源测速排序，优先推荐更流畅的源。",
-  "file": "apk/TGYS-TV-3.1.0.apk",
-  "size": 4522918,
-  "sha256": "ac353a84ae04ef6747c183be627427318c8fae2056c5aa4cebf93131e67da98e"
+  "versionCode": 112,
+  "versionName": "3.1.2",
+  "notes": "修复全屏暂停后再按 OK 跳到下一集（像从头播放）的问题；「重试」保留进度；搜索时提前测速，进入播放不用再等；全屏控制栏改为无边框通栏样式，连按两下 OK 暂停/继续；修复小窗与全屏切换黑屏；更新改由 Cloudflare 优先下载；安装包更小。",
+  "file": "apk/TGYS-TV-3.1.2.apk",
+  "size": 1460085,
+  "sha256": "3fc52452f2473a51185f3c50ceb3754131f368b29fd56c1a9eed16273e090ad7"
 }
