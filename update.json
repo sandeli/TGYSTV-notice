@@ -1,10 +1,10 @@
 {
   "push": true,
   "force": false,
-  "versionCode": 107,
-  "versionName": "3.0.7",
-  "notes": "本版起更换新签名：请先卸载旧版再安装（之后可应用内直接升级）。新增应用内更新、选集分页、换源列表自动收起、历史重新测速选源、公告小喇叭。",
-  "file": "apk/TGYS-TV-3.0.7.apk",
-  "size": 4505772,
-  "sha256": "c1740ff728aef1104e4635b2d56b316ebc7d4575a88ddca4ebd803f3987b687a"
+  "versionCode": 108,
+  "versionName": "3.0.8",
+  "notes": "新增弹幕（设置→弹幕，可扫码导入接口）；公告和更新走多个国内镜像；侧边栏自动收起为图标；小窗预览单击全屏、双击暂停、右键定位当前集；选集每页30集。",
+  "file": "apk/TGYS-TV-3.0.8.apk",
+  "size": 4522885,
+  "sha256": "4727aef4b82436b85e99be45d06f2fb60696fe0d30f1c36139ac1cbf1204db64"
 }
