@@ -49,31 +49,51 @@ button.ghost{background:#1B2B4B}
   <div id="msg"></div>
 </main>
 <script>
+window.onerror=function(m,u,l){var e=document.getElementById('msg');if(e){e.className='bad';e.textContent='页面出错：'+m+'（第 '+l+' 行）';}};
 var REPO='sandeli/TGYSTV-notice',BRANCH='main',PATH='announcement.json';
 var API='https://api.github.com/repos/'+REPO+'/contents/'+PATH;
-var $=function(id){return document.getElementById(id)};
-$('token').value=localStorage.getItem('tgys-notice-token')||'';
-function preview(){var parts=[$('text').value.trim()].concat($('more').value.split('\n').map(function(s){return s.trim()})).filter(Boolean);$('pv').textContent=$('enabled').checked?(parts.join('        ◆        ')||'（空）'):'（已隐藏）';}
-['text','more','enabled'].forEach(function(id){$(id).addEventListener('input',preview);$(id).addEventListener('change',preview)});
+function $(id){return document.getElementById(id)}
+function store(k,v){try{if(v===undefined)return window.localStorage.getItem(k)||'';window.localStorage.setItem(k,v)}catch(e){return ''}}
+$('token').value=store('tgys-notice-token');
+function lines(){var a=$('more').value.split('\n'),o=[];for(var i=0;i<a.length;i++){var t=a[i].replace(/^\s+|\s+$/g,'');if(t)o.push(t)}return o}
+function trim(s){return s.replace(/^\s+|\s+$/g,'')}
+function preview(){var p=[];if(trim($('text').value))p.push(trim($('text').value));p=p.concat(lines());$('pv').textContent=$('enabled').checked?(p.join('        ◆        ')||'（空）'):'（已隐藏）';}
+var ids=['text','more','enabled'];for(var k=0;k<ids.length;k++){$(ids[k]).oninput=preview;$(ids[k]).onchange=preview;}
 function say(t,cls){$('msg').className=cls||'';$('msg').textContent=t;}
 function b64(str){return btoa(unescape(encodeURIComponent(str)))}
-function unb64(str){return decodeURIComponent(escape(atob(str.replace(/\n/g,''))))}
-function headers(){var t=$('token').value.trim();var h={'Accept':'application/vnd.github+json'};if(t)h['Authorization']='Bearer '+t;return h;}
-function current(){return fetch(API+'?ref='+BRANCH+'&t='+Date.now(),{headers:headers()}).then(function(r){if(!r.ok)throw new Error('读取失败（HTTP '+r.status+'）');return r.json()});}
+function unb64(str){return decodeURIComponent(escape(atob(str.replace(/\s/g,''))))}
+function req(method,url,body,cb){
+  var x=new XMLHttpRequest();x.open(method,url,true);
+  x.setRequestHeader('Accept','application/vnd.github+json');
+  var t=trim($('token').value);if(t)x.setRequestHeader('Authorization','Bearer '+t);
+  if(body)x.setRequestHeader('Content-Type','application/json');
+  x.timeout=20000;
+  x.onload=function(){var j=null;try{j=JSON.parse(x.responseText)}catch(e){}cb(x.status,j)};
+  x.onerror=function(){cb(0,null)};x.ontimeout=function(){cb(-1,null)};
+  x.send(body?JSON.stringify(body):null);
+}
+function errText(st,j){if(st===0)return '连不上 GitHub，请检查网络后再试';if(st===-1)return '连接 GitHub 超时，请再试一次';if(st===401)return '令牌无效或已过期（HTTP 401）';if(st===403||st===404)return '令牌没有这个仓库的写权限（HTTP '+st+'）';return 'HTTP '+st+(j&&j.message?'：'+j.message:'')}
+function current(cb){req('GET',API+'?ref='+BRANCH+'&t='+(+new Date()),null,cb)}
 function fill(j){$('text').value=j.text||'';$('more').value=(j.messages||[]).join('\n');$('enabled').checked=j.enabled!==false;preview();}
-$('load').onclick=function(){say('正在读取…');current().then(function(f){fill(JSON.parse(unb64(f.content)));say('已读取当前公告','ok')}).catch(function(e){say(e.message,'bad')});};
+$('load').onclick=function(){say('正在读取…');current(function(st,f){if(st===200&&f){fill(JSON.parse(unb64(f.content)));say('已读取当前公告','ok')}else say('读取失败：'+errText(st,f),'bad')})};
+var busy=false;
 $('save').onclick=function(){
-  var t=$('token').value.trim();if(!t){say('请先填写 GitHub 令牌','bad');return;}
-  localStorage.setItem('tgys-notice-token',t);
-  var now=new Date();var data={enabled:$('enabled').checked,text:$('text').value.trim(),messages:$('more').value.split('\n').map(function(s){return s.trim()}).filter(Boolean),updated:now.toISOString()};
-  say('正在发布…');
-  current().then(function(f){return f.sha}).catch(function(){return null}).then(function(sha){
-    var body={message:'公告更新 '+now.toLocaleString('zh-CN'),content:b64(JSON.stringify(data,null,2)+'\n'),branch:BRANCH};if(sha)body.sha=sha;
-    return fetch(API,{method:'PUT',headers:Object.assign({'Content-Type':'application/json'},headers()),body:JSON.stringify(body)});
-  }).then(function(r){if(!r.ok)return r.json().then(function(j){throw new Error('发布失败（HTTP '+r.status+'）：'+(j.message||''))});['cdn','fastly'].forEach(function(h){fetch('https://purge.jsdelivr.net/gh/'+REPO+'@'+BRANCH+'/'+PATH).catch(function(){})});say('已发布。电视下次启动 App 时显示（一般几分钟内生效）。','ok');})
-  .catch(function(e){say(e.message,'bad')});
+  if(busy)return;
+  var t=trim($('token').value);if(!t){say('请先填写 GitHub 令牌','bad');return;}
+  store('tgys-notice-token',t);
+  var now=new Date();var data={enabled:$('enabled').checked,text:trim($('text').value),messages:lines(),updated:now.toISOString()};
+  busy=true;$('save').textContent='正在发布…';say('正在发布…');
+  current(function(st,f){
+    var body={message:'公告更新 '+now.toLocaleString(),content:b64(JSON.stringify(data,null,2)+'\n'),branch:BRANCH};if(st===200&&f&&f.sha)body.sha=f.sha;
+    req('PUT',API,body,function(st2,j){
+      busy=false;$('save').textContent='发布公告';
+      if(st2===200||st2===201){try{var p=new XMLHttpRequest();p.open('GET','https://purge.jsdelivr.net/gh/'+REPO+'@'+BRANCH+'/'+PATH,true);p.send()}catch(e){}
+        say('✓ 已发布。电视彻底退出 App 再打开即可看到（一般 1～2 分钟内生效）。','ok');}
+      else say('发布失败：'+errText(st2,j),'bad');
+    });
+  });
 };
-current().then(function(f){fill(JSON.parse(unb64(f.content)))}).catch(function(){preview()});
+current(function(st,f){if(st===200&&f){try{fill(JSON.parse(unb64(f.content)))}catch(e){preview()}}else preview()});
 </script>
 </body>
 </html>
