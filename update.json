@@ -1,10 +1,10 @@
 {
   "push": true,
   "force": false,
-  "versionCode": 119,
-  "versionName": "3.1.9",
-  "notes": "3.1.9：应用包名迁移为自有包名，内部整理，无功能变化；清理仓库无关代码。",
-  "file": "apk/TGYS-TV-3.1.9.apk",
-  "size": 1465564,
-  "sha256": "e3fd618f103ac76edcf1a6ed0bf4524fa275b684019873b78c5f304437612851"
+  "versionCode": 120,
+  "versionName": "3.1.10",
+  "notes": "3.1.10：播放器核心升级（Media3 1.8.1），电视声音轨兼容修复、拖动进度更顺畅、切集起播更快；关于页精简。",
+  "file": "apk/TGYS-TV-3.1.10.apk",
+  "size": 1481450,
+  "sha256": "7c4b4a6e61e35bc117aa9f30779542ffd77d972cdf5a9760f71c35f129c52531"
 }
