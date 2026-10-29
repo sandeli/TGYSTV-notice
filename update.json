@@ -1,11 +1,10 @@
 {
   "push": true,
   "force": false,
-  "versionCode": 114,
-  "versionName": "3.1.4",
-  "notes": "全屏控制栏第一位恢复「暂停/播放」按钮，光标默认停在上面，按 OK 立即暂停或继续，不会误点到下一集；侧边栏去掉左侧淡线，版本号居中；App 从后台回到前台也会检查更新。",
-  "file": "apk/TGYS-TV-3.1.4.apk",
-  "size": 1460292,
-  "sha256": "4b1c7effb8b70a61fa16ca31b9a16dd4591f2d5f85f1fa3f984358bdf6227d8e"
+  "versionCode": 115,
+  "versionName": "3.1.5",
+  "notes": "侧边栏固定为图标窄条，底部显示版本号；手机竖屏底部导航只显示图标，搜索后键盘自动收起；手机播放器点按显示控制条，右下角全屏图标进入横屏系统全屏。",
+  "file": "apk/TGYS-TV-3.1.5.apk",
+  "size": 1460574,
+  "sha256": "7f1ed9e4e1af3eac3d42cdb6e544430dfccd0ef2a0d296a2620d6ecb92842615"
 }
-
