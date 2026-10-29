@@ -1,10 +1,10 @@
 {
   "push": true,
   "force": false,
-  "versionCode": 118,
-  "versionName": "3.1.8",
-  "notes": "3.1.8：手机视频源名称完整显示；电视添加视频源可手机扫码填写；全屏四角文字加大加粗。",
-  "file": "apk/TGYS-TV-3.1.8.apk",
-  "size": 1465619,
-  "sha256": "b49190eebbec4e17fc62703a861d22065d6a6a643faa3222ee935c4c1d4afc4a"
+  "versionCode": 119,
+  "versionName": "3.1.9",
+  "notes": "3.1.9：应用包名迁移为自有包名，内部整理，无功能变化；清理仓库无关代码。",
+  "file": "apk/TGYS-TV-3.1.9.apk",
+  "size": 1465564,
+  "sha256": "e3fd618f103ac76edcf1a6ed0bf4524fa275b684019873b78c5f304437612851"
 }
