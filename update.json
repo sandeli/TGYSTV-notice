@@ -1,10 +1,11 @@
 {
   "push": true,
   "force": false,
-  "versionCode": 112,
-  "versionName": "3.1.2",
-  "notes": "修复全屏暂停后再按 OK 跳到下一集（像从头播放）的问题；「重试」保留进度；搜索时提前测速，进入播放不用再等；全屏控制栏改为无边框通栏样式，连按两下 OK 暂停/继续；修复小窗与全屏切换黑屏；更新改由 Cloudflare 优先下载；安装包更小。",
-  "file": "apk/TGYS-TV-3.1.2.apk",
-  "size": 1460085,
-  "sha256": "3fc52452f2473a51185f3c50ceb3754131f368b29fd56c1a9eed16273e090ad7"
+  "versionCode": 114,
+  "versionName": "3.1.4",
+  "notes": "全屏控制栏第一位恢复「暂停/播放」按钮，光标默认停在上面，按 OK 立即暂停或继续，不会误点到下一集；侧边栏去掉左侧淡线，版本号居中；App 从后台回到前台也会检查更新。",
+  "file": "apk/TGYS-TV-3.1.4.apk",
+  "size": 1460292,
+  "sha256": "4b1c7effb8b70a61fa16ca31b9a16dd4591f2d5f85f1fa3f984358bdf6227d8e"
 }
+
