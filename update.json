@@ -1,10 +1,10 @@
 {
   "push": true,
   "force": false,
-  "versionCode": 115,
-  "versionName": "3.1.5",
-  "notes": "侧边栏固定为图标窄条，底部显示版本号；手机竖屏底部导航只显示图标，搜索后键盘自动收起；手机播放器点按显示控制条，右下角全屏图标进入横屏系统全屏。",
-  "file": "apk/TGYS-TV-3.1.5.apk",
-  "size": 1460574,
-  "sha256": "7f1ed9e4e1af3eac3d42cdb6e544430dfccd0ef2a0d296a2620d6ecb92842615"
+  "versionCode": 116,
+  "versionName": "3.1.6",
+  "notes": "3.1.6：新增「片库」按片源浏览分类海报墙；等待挑源时显示影片海报和简介；手机小窗控制条可拖动进度条。",
+  "file": "apk/TGYS-TV-3.1.6.apk",
+  "size": 1463773,
+  "sha256": "d4be0379db727ef442ca35ec2e77b47b2276ad03b7f5564c8211314765824a33"
 }
