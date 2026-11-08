@@ -1,10 +1,10 @@
 {
   "push": true,
   "force": false,
-  "versionCode": 158,
-  "versionName": "4.3.2",
-  "notes": "TGYS TV 4.3.2 更新啦\n• 修复手机版「视频源订阅」里订阅名字被挤成竖排显示的问题",
-  "file": "apk/TGYS-TV-4.3.2.apk",
-  "size": 1596484,
-  "sha256": "bbb047272ba4268ebd345d02787ded895c9b0d2fbe51f290a5a6d9be116b0188"
+  "versionCode": 160,
+  "versionName": "4.3.4",
+  "notes": "TGYS TV 4.3.4 更新啦\n• 应用更新下载提速：下载前先测速挑最快的线路，支持断点续传，线路慢了自动换线，弱网下更新更稳\n• 视频源订阅改为每条独立：每条订阅完整保存自己的源，和其他订阅重复的源也会显示，不再缺源\n• 点播订阅改为只能启用一条：启用一条，其他订阅自动停用\n• 订阅自动更新间隔从每 6 小时改为每 1 小时",
+  "file": "apk/TGYS-TV-4.3.4.apk",
+  "size": 1598117,
+  "sha256": "3c3bfd44c7346d49fda0349f0857891c3f64fe09cd78a4b74e665dd29bad3294"
 }
