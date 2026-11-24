@@ -1,9 +1,9 @@
 {
   "enabled": true,
-  "text": "欢迎使用TGYS TV，本软件为空壳，需要添加cms源使用！ ⸜(๑'ᵕ'๑)⸝⋆*",
+  "text": "欢迎使用TGYS TV，需要添加cms源使用！ ⸜(๑'ᵕ'๑)⸝⋆*",
   "messages": [
-    "源移步   q.taoge.x10.mx"
+    "交流下载  q.taoge.x10.mx"
   ],
-  "updated": "2026-11-14T09:42:08.250Z",
-  "rev": 20
+  "updated": "2026-11-24T02:54:43.338Z",
+  "rev": 21
 }
